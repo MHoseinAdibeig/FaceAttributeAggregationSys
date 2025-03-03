@@ -1,4 +1,6 @@
-Landmarks, estimating age and gender, and storing the results. The system is implemented using Flask, gRPC, and Redis.
+**Face Attribute Aggregation System
+This repository contains a microservices-based system for detecting faces, extracting
+landmarks, estimating age and gender, and storing the results. The system is implemented using Flask, gRPC, and Redis.
 
 Table of Contents
 Features
