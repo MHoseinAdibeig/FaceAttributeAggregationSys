@@ -1,0 +1,8 @@
+grpcio
+grpcio-tools
+opencv-python
+redis
+dlib
+torch
+torchvision
+pillow
