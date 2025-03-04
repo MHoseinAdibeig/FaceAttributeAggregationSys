@@ -1,0 +1,12 @@
+FROM python:3.9-slim
+
+WORKDIR ~/Documents/FaceAttributeAggregationSys/
+
+COPY requirements.txt requirements.txt
+RUN python -m venv ../Face
+RUN ../Face/bin/pip install -r requirements.txt
+
+ENV VIRTUAL_ENV = ../Face
+ENV PATH="../Face/bin:$PATH"
+
+CMD ["python", "AgeGenderEstimation.py"]
