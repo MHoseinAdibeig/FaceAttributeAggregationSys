@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package ai;
+
+service Aggregator {
+    rpc SaveFaceAttributes (FaceResult) returns (FaceResultResponse) {}
+}
+
+service LandmarkDetection {
+    rpc DetectLandmarks (ImageRequest) returns (LandmarkResponse) {}
+}
+
+service AgeGenderEstimation {
+    rpc EstimateAgeGender (ImageRequest) returns (AgeGenderResponse) {}
+}
+
+service DataStorage {
+    rpc StoreData (DataRequest) returns (DataResponse) {}
+}
+
+message FaceResult {
+    string time = 1;
+    bytes  frame = 2; // Send image data in JPEG format
+    string redis_key = 3;
+}
+
+message FaceResultResponse {
+    bool response = 1;
+}
+
+message ImageRequest {
+    bytes image = 1;
+}
+
+message LandmarkResponse {
+    map<int32, Landmark> landmarks = 1;
+}
+
+message AgeGenderResponse {
+    float age = 1;
+    float gender = 2;
+}
+
+message DataRequest {
+    bytes image = 1;
+    string redis_key = 2;
+}
+
+message DataResponse {
+    bool success = 1;
+}
+
+message Landmark {
+    repeated Point points = 1;
+}
+
+message Point {
+    int32 x = 1;
+    int32 y = 2;
+}
