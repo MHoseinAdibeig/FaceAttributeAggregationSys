@@ -1,0 +1,43 @@
+services:
+  redis:
+    image: redis:alpine
+    container_name: redis
+
+  image_input_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.image_input
+    depends_on:
+      - landmark_detection_service
+      - age_gender_estimation_service
+    environment:
+      - REDIS_URL=redis://redis:6379
+
+  landmark_detection_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.landmark_detection
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  age_gender_estimation_service:
+    build:
+      context: .
+      dockerfile: Dockerfile.age_gender_estimation
+    environment:
+      - REDIS_URL=redis://redis:6379
+    depends_on:
+      - redis
+
+  data_storage_service:
+  build:
+    context: .
+    dockerfile: Dockerfile.data_storage
+  environment:
+    - REDIS_URL=redis://redis:6379
+  depends_on:
+    - redis
+  image: python:3.10-slim
+
